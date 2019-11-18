@@ -13,14 +13,28 @@ defmodule PhoenixCourse2Web.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug PhoenixCourse2Web.GuardianPipeline
+  end
+
+  pipeline :ensure_auth do
+    plug Guardian.Plug.EnsureAuthenticated
+  end
+
+  # public routes
   scope "/", PhoenixCourse2Web do
     pipe_through :browser
 
-    get "/", PageController, :index
     get "/register", RegisterController, :new
     post "/register", RegisterController, :create
     get "/login", LoginController, :new
     post "/login", LoginController, :create
+  end
+
+  # private routes
+  scope "/", PhoenixCourse2Web do
+    pipe_through [:browser, :auth, :ensure_auth]
+    get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.

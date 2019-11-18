@@ -22,6 +22,10 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :phoenix_course_2, PhoenixCourse2.Guardian,
+  issuer: "phoenix_course_2",
+  secret_key: "gp8NlMQQ+NY5xj5bP01kNqlQRo9sEcNNWe3U8VZW/JBeMyPQaNBtAjXwPqVCESpT"
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 

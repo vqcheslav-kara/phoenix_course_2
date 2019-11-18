@@ -17,11 +17,29 @@ defmodule PhoenixCourse2.User do
     |> validate_length(:name, min: 3, max: 100)
     |> validate_length(:password, min: 3, max: 100)
     |> validate_confirmation(:password, message: "Passwords not match")
+    |> put_password_hash()
+    |> IO.inspect()
   end
 
   def create(params) do
     %__MODULE__{}
     |> changeset(params)
     |> Repo.insert()
+  end
+
+  def put_password_hash(%{valid?: true, changes: %{password: password}} = changeset) do
+    put_change(changeset, :password, Bcrypt.hash_pwd_salt(password))
+  end
+
+  def put_password_hash(changeset) do
+    changeset
+  end
+
+  def get_user(id) do
+    Repo.get(__MODULE__, id)
+  end
+
+  def get_by_email(email) do
+    Repo.get_by(__MODULE__, email: email)
   end
 end
