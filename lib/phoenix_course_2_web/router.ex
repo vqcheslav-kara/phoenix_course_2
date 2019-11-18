@@ -17,6 +17,10 @@ defmodule PhoenixCourse2Web.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/register", RegisterController, :new
+    post "/register", RegisterController, :create
+    get "/login", LoginController, :new
+    post "/login", LoginController, :create
   end
 
   # Other scopes may use custom stacks.
