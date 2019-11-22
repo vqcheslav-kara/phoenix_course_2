@@ -18,7 +18,6 @@ defmodule PhoenixCourse2.User do
     |> validate_length(:password, min: 3, max: 100)
     |> validate_confirmation(:password, message: "Passwords not match")
     |> put_password_hash()
-    |> IO.inspect()
   end
 
   def create(params) do

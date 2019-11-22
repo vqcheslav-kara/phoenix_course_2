@@ -13,9 +13,9 @@ defmodule PhoenixCourse2Web.RegisterController do
         |> put_flash(:info, "Registered!")
         |> redirect(to: Routes.login_path(conn, :new))
 
-      {:error, %Ecto.Changeset{errors: errors}} ->
+      {:error, %Ecto.Changeset{errors: errors} = changeset} ->
         conn
-        |> render("new.html", errors: errors)
+        |> render("new.html", errors: errors, changeset: changeset)
     end
   end
 end

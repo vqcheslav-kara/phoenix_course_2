@@ -35,6 +35,8 @@ defmodule PhoenixCourse2Web.Router do
   scope "/", PhoenixCourse2Web do
     pipe_through [:browser, :auth, :ensure_auth]
     get "/", PageController, :index
+    post "/logout", LoginController, :logout
+    resources "/category", CategoryController
   end
 
   # Other scopes may use custom stacks.
